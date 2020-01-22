@@ -1,30 +1,32 @@
 import React from 'react';
 
+const logPureLifecycle = (constructor: Function) => {
+    const original = constructor.prototype.render;
+
+    constructor.prototype.render = function() {
+        console.log(`${constructor.name}: render`);
+        return original.apply(this, arguments);
+    };
+
+    constructor.prototype.componentDidMount = function() {
+        console.log(`${constructor.name}: componentDidMount`);
+        return original.apply(this, arguments);
+    };
+
+    constructor.prototype.componentWillUnmount = function() {
+        console.log(`${constructor.name}: componentWillUnmount`);
+        return original.apply(this, arguments);
+    };
+
+    constructor.prototype.componentDidUpdate = function() {
+        console.log(`${constructor.name}: componentDidUpdate`);
+        return original.apply(this, arguments);
+    };
+}
+
+@logPureLifecycle
 export class LifecycleDemos extends React.PureComponent {
-    constructor(props: any) {
-        super(props);
-        this.log('constructor');
-    }
-
     public render() {
-        // todo: lifecycle decorator
-        this.log('render');
         return <h1>LifecycleDemos</h1>;
-    }
-
-    public componentDidMount() {
-        this.log('componentDidMount');
-    }
-
-    public componentWillUnmount() {
-        this.log('componentWillUnmount');
-    }
-
-    public componentDidUpdate() {
-        this.log('componentDidUpdate');
-    }
-
-    private log(message: string) {
-        console.log('LifecycleDemos: ' + message);
     }
 }
