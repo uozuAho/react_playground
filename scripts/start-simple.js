@@ -13,8 +13,6 @@ process.on('unhandledRejection', err => {
 
 require('../config/env');
 
-const fs = require('fs');
-const chalk = require('react-dev-utils/chalk');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const {
@@ -33,7 +31,6 @@ const port = DEFAULT_PORT;
 const config = configFactory('development');
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const appName = require(paths.appPackageJson).name;
-const useTypeScript = fs.existsSync(paths.appTsConfig);
 const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';
 const urls = prepareUrls(protocol, HOST, port);
 
@@ -51,7 +48,7 @@ const compiler = createCompiler({
   devSocket,
   urls,
   useYarn: false,
-  useTypeScript,
+  useTypeScript: true,
   tscCompileOnError,
   webpack,
 });
@@ -73,7 +70,7 @@ devServer.listen(port, HOST, err => {
     return console.log(err);
   }
 
-  console.log(chalk.cyan('Starting the development server...\n'));
+  console.log('Starting the development server...\n');
 });
 
 ['SIGINT', 'SIGTERM'].forEach(function(sig) {
