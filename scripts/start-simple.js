@@ -26,8 +26,6 @@ const paths = require('../config/paths');
 const configFactory = require('../config/webpack.config');
 const createDevServerConfig = require('../config/webpackDevServer.config');
 
-const useYarn = fs.existsSync(paths.yarnLockFile);
-
 const DEFAULT_PORT = 3000;
 const HOST = '0.0.0.0';
 
@@ -52,7 +50,7 @@ const compiler = createCompiler({
   config,
   devSocket,
   urls,
-  useYarn,
+  useYarn: false,
   useTypeScript,
   tscCompileOnError,
   webpack,
