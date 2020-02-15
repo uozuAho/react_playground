@@ -24,15 +24,13 @@ const paths = require('../config/paths');
 const configFactory = require('../config/webpack.config');
 const createDevServerConfig = require('../config/webpackDevServer.config');
 
-const DEFAULT_PORT = 3000;
+const PORT = 3000;
 const HOST = '0.0.0.0';
 
-const port = DEFAULT_PORT;
 const config = configFactory('development');
-const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const appName = require(paths.appPackageJson).name;
 const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === 'true';
-const urls = prepareUrls(protocol, HOST, port);
+const urls = prepareUrls('http', HOST, PORT);
 
 const devSocket = {
   warnings: warnings =>
@@ -65,7 +63,7 @@ const serverConfig = createDevServerConfig(
 
 const devServer = new WebpackDevServer(compiler, serverConfig);
 
-devServer.listen(port, HOST, err => {
+devServer.listen(PORT, HOST, err => {
   if (err) {
     return console.log(err);
   }
