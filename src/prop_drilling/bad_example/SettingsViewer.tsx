@@ -8,11 +8,9 @@ interface SettingsViewerProps {
 
 export const SettingsViewer: React.FunctionComponent<SettingsViewerProps> = props => {
   return (
-    <>
-      <ul>
-        <li>Enabled: {props.settings.enabled ? 'Yep': 'Nup'}</li>
-        <li>Selected template: {props.settings.selectedTemplateId}</li>
-      </ul>
-    </>
+    <ul>
+      <li>Enabled: {props.settings.enabled ? 'Yep': 'Nup'}</li>
+      <li>Selected template: {props.settings.selectedTemplateId}</li>
+    </ul>
   );
 }
