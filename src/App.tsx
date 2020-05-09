@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 
 import { LifecycleDemos } from './lifecycle/LifecycleDemos';
 import { SettingsDoover } from './prop_drilling/bad_example/Settings';
