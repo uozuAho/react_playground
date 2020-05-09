@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { LifecycleDemos } from './lifecycle/LifecycleDemos';
-import { SettingsDoover } from './prop_drilling/bad_example/Settings';
+import { SettingsContainer } from './prop_drilling/bad_example/SettingsContainer';
 import {
   SidebarRouter,
   SidebarItem,
@@ -25,7 +25,7 @@ const componentRoutes: ISidebarItem[] = [
   new SidebarItem(
     "/prop_drilling",
     "Prop drilling",
-    () => <SettingsDoover />
+    () => <SettingsContainer />
   ),
 ];
 

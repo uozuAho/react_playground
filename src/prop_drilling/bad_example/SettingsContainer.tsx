@@ -13,14 +13,14 @@ interface SettingsDooverState {
   settings: Settings
 }
 
-export class SettingsDoover extends React.Component<{}, SettingsDooverState> {
+export class SettingsContainer extends React.Component<{}, SettingsDooverState> {
   constructor(props: {}) {
     super(props);
     this.state = {
       mode: 'view',
       settings: {
         enabled: false,
-        selectedTemplateId: null
+        selectedTemplateId: '1234'
       }
     };
   }

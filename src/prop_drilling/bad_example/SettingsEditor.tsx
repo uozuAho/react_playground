@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { Settings } from "./Settings"
+import { Settings } from "./SettingsContainer"
 
 interface SettingsEditorProps {
   settings: Settings
