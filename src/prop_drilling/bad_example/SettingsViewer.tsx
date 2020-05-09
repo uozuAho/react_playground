@@ -9,7 +9,6 @@ interface SettingsViewerProps {
 export const SettingsViewer: React.FunctionComponent<SettingsViewerProps> = props => {
   return (
     <>
-      <h1>Viewer</h1>
       <ul>
         <li>Enabled: {props.settings.enabled ? 'Yep': 'Nup'}</li>
         <li>Selected template: {props.settings.selectedTemplateId}</li>
