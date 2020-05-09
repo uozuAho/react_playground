@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import { SettingsViewer } from './SettingsViewer';
+import { SettingsEditor } from './SettingsEditor';
 
 export interface Settings {
   enabled: boolean,
@@ -27,16 +29,14 @@ export class SettingsDoover extends React.Component<{}, SettingsDooverState> {
     const getThing = () => {
       switch (this.state.mode) {
         case 'view': return <SettingsViewer settings={this.state.settings}/>
+        case 'edit': return <SettingsEditor settings={this.state.settings}/>
       }
-    }
+    };
 
     return (
       <div>
         <h1>Settings</h1>
-        {switch (this.state.mode) {
-          case 'view':
-
-        }}
+        {getThing()}
       </div>
     );
   }
