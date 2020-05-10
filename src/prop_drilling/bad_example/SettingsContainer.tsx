@@ -33,6 +33,13 @@ export class SettingsContainer extends React.Component<{}, SettingsDooverState> 
     this.setState({mode: 'view'});
   };
 
+  private onChangesSaved = (values: Settings) => {
+    this.setState({
+      mode: 'view',
+      settings: values
+    });
+  };
+
   private renderViewer = () => {
     return (
       <>
@@ -45,7 +52,7 @@ export class SettingsContainer extends React.Component<{}, SettingsDooverState> 
   private renderEditor = () => {
     return (
       <>
-        <SettingsEditor settings={this.state.settings}/>
+        <SettingsEditor settings={this.state.settings} onSaved={this.onChangesSaved}/>
         <button onClick={this.onCancelEdits}>Cancel</button>
       </>
     );

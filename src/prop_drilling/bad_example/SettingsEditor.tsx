@@ -3,28 +3,47 @@ import * as React from "react"
 import { Settings } from "./SettingsContainer"
 
 interface SettingsEditorProps {
-  settings: Settings
+  settings: Settings,
+  onSaved: (values: Settings) => void;
 };
 
-interface SettingsEditorState {
-  settings: Settings
-};
+interface SettingsEditorState extends Settings {};
 
 export class SettingsEditor extends React.Component<SettingsEditorProps, SettingsEditorState> {
   constructor(props: SettingsEditorProps) {
     super(props);
-    this.state = {
-      settings: props.settings
-    };
+    this.state = props.settings;
   }
 
+  private onEnabledChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      enabled: event.target.checked
+    });
+  };
+
+  private onSaveClicked = () => {
+    this.props.onSaved(this.state);
+  };
+
   public render = () => {
-    const settings = this.state.settings;
+    const settings = this.state;
     return (
-      <ul>
-        <li>Enabled: {settings.enabled ? 'Yep': 'Nup'}</li>
-        <li>Selected template: {settings.selectedTemplateId}</li>
-      </ul>
+      <>
+        <ul>
+          <li>
+            <label>
+              Enabled:
+              <input
+                name="enabled"
+                type="checkbox"
+                checked={settings.enabled}
+                onChange={this.onEnabledChanged} />
+            </label>
+          </li>
+          <li>Selected template: {settings.selectedTemplateId}</li>
+        </ul>
+        <button onClick={this.onSaveClicked}>Save</button>
+      </>
     )
   };
 }
