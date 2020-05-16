@@ -8,12 +8,17 @@ interface SettingsEditorProps {
   onSaved: (values: Settings) => void;
 };
 
-interface SettingsEditorState extends Settings {};
+interface SettingsEditorState extends Settings {
+  isSelectingTemplate: boolean;
+};
 
 export class SettingsEditor extends React.Component<SettingsEditorProps, SettingsEditorState> {
   constructor(props: SettingsEditorProps) {
     super(props);
-    this.state = props.settings;
+    this.state = {
+      ...props.settings,
+      isSelectingTemplate: false
+    };
   }
 
   private onEnabledChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,8 +31,16 @@ export class SettingsEditor extends React.Component<SettingsEditorProps, Setting
     this.props.onSaved(this.state);
   };
 
+  private onEditTemplateClicked = () => {
+    this.setState({isSelectingTemplate: true});
+  };
+
+  private onCancelEditTemplate = () => {
+    this.setState({isSelectingTemplate: false});
+  };
+
   public render = () => {
-    const settings = this.state;
+    const state = this.state;
     return (
       <>
         <ul>
@@ -37,12 +50,17 @@ export class SettingsEditor extends React.Component<SettingsEditorProps, Setting
               <input
                 name="enabled"
                 type="checkbox"
-                checked={settings.enabled}
+                checked={state.enabled}
                 onChange={this.onEnabledChanged} />
             </label>
           </li>
-          <li>Selected template: {settings.selectedTemplateId}</li>
-          <TemplateSelector />
+          <li>
+            Selected template: {state.selectedTemplateId}
+            <button onClick={this.onEditTemplateClicked}>edit</button>
+          </li>
+          {state.isSelectingTemplate &&
+            <TemplateSelector onCancelled={this.onCancelEditTemplate}/>
+          }
         </ul>
         <button onClick={this.onSaveClicked}>Save</button>
       </>

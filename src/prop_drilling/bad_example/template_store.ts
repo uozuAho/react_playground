@@ -1,5 +1,6 @@
 const _templates: string[] = [
-  'abcd'
+  'template 1',
+  'template 2'
 ];
 
 export class TemplateStore {
