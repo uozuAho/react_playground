@@ -1,6 +1,7 @@
 import * as React from "react"
 
 import { Settings } from "./SettingsContainer"
+import { TemplateSelector } from "./TemplateSelector";
 
 interface SettingsEditorProps {
   settings: Settings,
@@ -41,6 +42,7 @@ export class SettingsEditor extends React.Component<SettingsEditorProps, Setting
             </label>
           </li>
           <li>Selected template: {settings.selectedTemplateId}</li>
+          <TemplateSelector />
         </ul>
         <button onClick={this.onSaveClicked}>Save</button>
       </>
