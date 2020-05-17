@@ -1,8 +1,11 @@
 import * as React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 import { SettingsViewer } from './SettingsViewer';
 import { SettingsEditor } from './SettingsEditor';
 import { TemplateStore } from './template_store';
+
+const readme = require('./readme.md');
 
 export interface Settings {
   enabled: boolean,
@@ -11,7 +14,8 @@ export interface Settings {
 
 interface SettingsDooverState {
   mode: 'view' | 'edit';
-  settings: Settings
+  settings: Settings;
+  readme: string;
 }
 
 export class SettingsContainer extends React.Component<{}, SettingsDooverState> {
@@ -25,7 +29,8 @@ export class SettingsContainer extends React.Component<{}, SettingsDooverState> 
       settings: {
         enabled: false,
         selectedTemplateId: 'template 1'
-      }
+      },
+      readme: ''
     };
   }
 
@@ -33,6 +38,10 @@ export class SettingsContainer extends React.Component<{}, SettingsDooverState> 
     const selectedTemplate = this.state.settings.selectedTemplateId;
 
     if (!selectedTemplate) { return; }
+
+    fetch(readme).then(response => response.text()).then(text => {
+      this.setState({readme: text});
+    });
 
     this.templateStore.loadTemplates()
       .then(templates => {
@@ -93,6 +102,7 @@ export class SettingsContainer extends React.Component<{}, SettingsDooverState> 
     return (
       <>
         <h1>Settings</h1>
+        <ReactMarkdown source={this.state.readme} />
         {getThing()}
       </>
     );
