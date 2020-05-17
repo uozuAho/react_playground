@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { Settings } from "./SettingsContainer"
+import { Settings } from "./BuggySettings"
 
 interface SettingsViewerProps {
   settings: Settings

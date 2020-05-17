@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { LifecycleDemos } from './lifecycle/LifecycleDemos';
-import { SettingsContainer } from './prop_drilling/bad_example/SettingsContainer';
 import {
   SidebarRouter,
   SidebarItem,
   ISidebarItem
 } from './layout/SidebarRouter';
+import { LifecycleDemos } from './lifecycle/LifecycleDemos';
+import { PropDrillingDemo } from './prop_drilling/PropDrillingDemo';
 
 const App: React.FC = () => {
   return (
@@ -25,7 +25,7 @@ const componentRoutes: ISidebarItem[] = [
   new SidebarItem(
     "/prop_drilling",
     "Prop drilling",
-    () => <SettingsContainer />
+    () => <PropDrillingDemo />
   ),
 ];
 
