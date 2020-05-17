@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import { SettingsViewer } from './SettingsViewer';
 import { SettingsEditor } from './SettingsEditor';
+import { TemplateStore } from './template_store';
 
 export interface Settings {
   enabled: boolean,
@@ -14,8 +15,11 @@ interface SettingsDooverState {
 }
 
 export class SettingsContainer extends React.Component<{}, SettingsDooverState> {
+  private templateStore: TemplateStore;
+
   constructor(props: {}) {
     super(props);
+    this.templateStore = new TemplateStore();
     this.state = {
       mode: 'view',
       settings: {
@@ -24,6 +28,26 @@ export class SettingsContainer extends React.Component<{}, SettingsDooverState> 
       }
     };
   }
+
+  public componentDidMount = () => {
+    const selectedTemplate = this.state.settings.selectedTemplateId;
+
+    if (!selectedTemplate) { return; }
+
+    this.templateStore.loadTemplates()
+      .then(templates => {
+        if (templates.indexOf(selectedTemplate) === -1) {
+          this.setState(state => {
+            return {
+              settings: {
+                ...state.settings,
+                selectedTemplateId: '???'
+              }
+            };
+          })
+        }
+      });
+  };
 
   private onEditClicked = () => {
     this.setState({mode: 'edit'});
