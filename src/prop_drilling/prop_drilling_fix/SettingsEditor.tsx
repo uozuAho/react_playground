@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import { Settings } from "./BuggySettings"
+import { Settings } from "./PropDrillingSettings"
 import { TemplateSelector } from "../templates/TemplateSelector";
 
 interface SettingsEditorProps {
