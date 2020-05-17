@@ -35,6 +35,13 @@ export class SettingsEditor extends React.Component<SettingsEditorProps, Setting
     this.setState({isSelectingTemplate: true});
   };
 
+  private onTemplateSelected = (name: string) => {
+    this.setState({
+      selectedTemplateId: name,
+      isSelectingTemplate: false
+    });
+  };
+
   private onCancelEditTemplate = () => {
     this.setState({isSelectingTemplate: false});
   };
@@ -59,7 +66,9 @@ export class SettingsEditor extends React.Component<SettingsEditorProps, Setting
             <button onClick={this.onEditTemplateClicked}>edit</button>
           </li>
           {state.isSelectingTemplate &&
-            <TemplateSelector onCancelled={this.onCancelEditTemplate}/>
+            <TemplateSelector
+              onSelected={this.onTemplateSelected}
+              onCancelled={this.onCancelEditTemplate}/>
           }
         </ul>
         <button onClick={this.onSaveClicked}>Save</button>

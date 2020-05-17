@@ -3,37 +3,80 @@ import React from "react";
 import { TemplateStore } from "./template_store";
 
 interface TemplateSelectorProps {
+  onSelected: (name: string) => void;
   onCancelled: () => void;
 }
 
-export class TemplateSelector extends React.Component<TemplateSelectorProps> {
+interface TemplateSelectorState {
+  availableTemplates: string[];
+}
+
+export class TemplateSelector extends React.Component<
+  TemplateSelectorProps, TemplateSelectorState>
+{
   private templateStore: TemplateStore;
 
   constructor(props: TemplateSelectorProps) {
     super(props);
     this.templateStore = new TemplateStore();
+    this.state = {
+      availableTemplates: []
+    };
   }
+
+  public componentDidMount = () => {
+    this.loadTemplates();
+  };
 
   public render = () => {
     return (
       <>
         <h2>Choose a template</h2>
         <ul>
-          {this.templateStore.loadTemplates().map(t =>
+          {this.state.availableTemplates.map(name =>
             <li>
-              <TemplateOption name={t} />
+              <TemplateOption
+                name={name}
+                onSelectClick={() => this.onSelectOptionClicked(name)}
+                onDeleteClick={() => this.onDeleteOptionClicked(name)} />
             </li>)}
         </ul>
         <button onClick={this.props.onCancelled}>Cancel</button>
       </>
     );
   }
+
+  private loadTemplates = () => {
+    this.templateStore.loadTemplates()
+      .then(templates => {
+        this.setState({
+          availableTemplates: templates
+        });
+      });
+  };
+
+  private onDeleteOptionClicked = (name: string) => {
+    this.templateStore.delete(name);
+    this.loadTemplates();
+  };
+
+  private onSelectOptionClicked = (name: string) => {
+    this.props.onSelected(name);
+  };
 }
 
 interface TemplateOptionProps {
-  name: string
+  name: string;
+  onSelectClick: () => void;
+  onDeleteClick: () => void;
 }
 
 const TemplateOption = (props: TemplateOptionProps) => {
-  return <>{props.name}</>;
+  return (
+    <>
+      {props.name}
+      <button onClick={props.onSelectClick}>select</button>
+      <button onClick={props.onDeleteClick}>delete</button>
+    </>
+  );
 }

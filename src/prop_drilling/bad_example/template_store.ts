@@ -4,7 +4,13 @@ const _templates: string[] = [
 ];
 
 export class TemplateStore {
-  public loadTemplates = () => {
-    return _templates.slice();
-  }
+  public loadTemplates = (): Promise<string[]> => {
+    return Promise.resolve(_templates.slice());
+  };
+
+  public delete = (name: string): void => {
+    const idx = _templates.indexOf(name);
+    if (idx === -1) { return; }
+    _templates.splice(idx, 1);
+  };
 }

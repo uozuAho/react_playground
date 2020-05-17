@@ -20,7 +20,7 @@ export class SettingsContainer extends React.Component<{}, SettingsDooverState> 
       mode: 'view',
       settings: {
         enabled: false,
-        selectedTemplateId: '1234'
+        selectedTemplateId: 'template 1'
       }
     };
   }
