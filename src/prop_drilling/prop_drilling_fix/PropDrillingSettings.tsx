@@ -9,12 +9,12 @@ export interface Settings {
   selectedTemplateId: string | null
 }
 
-interface SettingsDooverState {
+interface PropDrillingSettingsState {
   mode: 'view' | 'edit';
   settings: Settings;
 }
 
-export class BuggySettings extends React.Component<{}, SettingsDooverState> {
+export class PropDrillingSettings extends React.Component<{}, PropDrillingSettingsState> {
   private templateStore: TemplateStore;
 
   constructor(props: {}) {
@@ -64,6 +64,17 @@ export class BuggySettings extends React.Component<{}, SettingsDooverState> {
     });
   };
 
+  private onSelectedTemplateDeleted = () => {
+    this.setState(state => {
+      return {
+        settings: {
+          ...state.settings,
+          selectedTemplateId: null
+        }
+      };
+    });
+  };
+
   private renderViewer = () => {
     return (
       <>
@@ -76,7 +87,10 @@ export class BuggySettings extends React.Component<{}, SettingsDooverState> {
   private renderEditor = () => {
     return (
       <>
-        <SettingsEditor settings={this.state.settings} onSaved={this.onChangesSaved}/>
+        <SettingsEditor
+          settings={this.state.settings}
+          onSaved={this.onChangesSaved}
+          onSelectedTemplateDeleted={this.onSelectedTemplateDeleted} />
         <button onClick={this.onCancelEdits}>Cancel</button>
       </>
     );
@@ -92,11 +106,13 @@ export class BuggySettings extends React.Component<{}, SettingsDooverState> {
 
     return (
       <>
-        <h1>Buggy settings</h1>
+        <h1>Prop drilling settings</h1>
         <p>
-          Try deleting the selected template. You'll notice that the settings
-          viewer and editor aren't notified of the deletion, thus continue to
-          show the deleted template.
+          This fixes the buggy settings example by passing the 'selected
+          template deleted' event up to the top level from the template editor.
+        </p>
+        <p>
+          Top (selected template) &lt;--- settings editor &lt;--- template editor: template deleted
         </p>
         {getThing()}
       </>

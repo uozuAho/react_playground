@@ -5,6 +5,7 @@ import { TemplateStore } from "./template_store";
 interface TemplateSelectorProps {
   onSelected: (name: string) => void;
   onCancelled: () => void;
+  onDeleted?: (name: string) => void;
 }
 
 interface TemplateSelectorState {
@@ -57,6 +58,7 @@ export class TemplateSelector extends React.Component<
 
   private onDeleteOptionClicked = (name: string) => {
     this.templateStore.delete(name);
+    if (this.props.onDeleted) { this.props.onDeleted(name); }
     this.loadTemplates();
   };
 

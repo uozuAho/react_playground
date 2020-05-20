@@ -6,6 +6,7 @@ import { TemplateSelector } from "../templates/TemplateSelector";
 interface SettingsEditorProps {
   settings: Settings,
   onSaved: (values: Settings) => void;
+  onSelectedTemplateDeleted: () => void;
 };
 
 interface SettingsEditorState extends Settings {
@@ -46,6 +47,13 @@ export class SettingsEditor extends React.Component<SettingsEditorProps, Setting
     this.setState({isSelectingTemplate: false});
   };
 
+  private onTemplateDeleted = (name: string) => {
+    if (name === this.state.selectedTemplateId) {
+      this.setState({selectedTemplateId: null});
+      this.props.onSelectedTemplateDeleted();
+    }
+  };
+
   public render = () => {
     const state = this.state;
     return (
@@ -68,7 +76,8 @@ export class SettingsEditor extends React.Component<SettingsEditorProps, Setting
           {state.isSelectingTemplate &&
             <TemplateSelector
               onSelected={this.onTemplateSelected}
-              onCancelled={this.onCancelEditTemplate}/>
+              onCancelled={this.onCancelEditTemplate}
+              onDeleted={this.onTemplateDeleted} />
           }
         </ul>
         <button onClick={this.onSaveClicked}>Save</button>
