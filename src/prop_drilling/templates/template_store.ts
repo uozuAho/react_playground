@@ -3,7 +3,12 @@ const _templates: string[] = [
   'template 2'
 ];
 
-export class TemplateStore {
+export interface TemplateStore {
+  loadTemplates: () => Promise<string[]>;
+  delete: (name: string) => void;
+}
+
+export class RemoteTemplateStore implements TemplateStore {
   public loadTemplates = (): Promise<string[]> => {
     return Promise.resolve(_templates.slice());
   };

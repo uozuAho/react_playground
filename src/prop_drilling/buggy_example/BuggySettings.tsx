@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { SettingsViewer } from './SettingsViewer';
 import { SettingsEditor } from './SettingsEditor';
-import { TemplateStore } from '../templates/template_store';
+import { RemoteTemplateStore } from '../templates/template_store';
 
 export interface Settings {
   enabled: boolean,
@@ -15,11 +15,11 @@ interface SettingsDooverState {
 }
 
 export class BuggySettings extends React.Component<{}, SettingsDooverState> {
-  private templateStore: TemplateStore;
+  private templateStore: RemoteTemplateStore;
 
   constructor(props: {}) {
     super(props);
-    this.templateStore = new TemplateStore();
+    this.templateStore = new RemoteTemplateStore();
     this.state = {
       mode: 'view',
       settings: {

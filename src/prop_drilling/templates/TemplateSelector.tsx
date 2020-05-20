@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TemplateStore } from "./template_store";
+import { RemoteTemplateStore } from "./template_store";
 
 interface TemplateSelectorProps {
   onSelected: (name: string) => void;
@@ -15,11 +15,11 @@ interface TemplateSelectorState {
 export class TemplateSelector extends React.Component<
   TemplateSelectorProps, TemplateSelectorState>
 {
-  private templateStore: TemplateStore;
+  private templateStore: RemoteTemplateStore;
 
   constructor(props: TemplateSelectorProps) {
     super(props);
-    this.templateStore = new TemplateStore();
+    this.templateStore = new RemoteTemplateStore();
     this.state = {
       availableTemplates: []
     };
