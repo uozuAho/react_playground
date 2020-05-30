@@ -6,7 +6,6 @@ import {
   ISidebarItem
 } from './layout/SidebarRouter';
 import { LifecycleDemos } from './lifecycle/LifecycleDemos';
-import { PropDrillingDemo } from './prop_drilling/PropDrillingDemo';
 
 const App: React.FC = () => {
   return (
@@ -21,11 +20,6 @@ const componentRoutes: ISidebarItem[] = [
       "/lifecycle_demos",
       "Lifecycle demos",
       () => <LifecycleDemos />
-  ),
-  new SidebarItem(
-    "/prop_drilling",
-    "Prop drilling",
-    () => <PropDrillingDemo />
   ),
 ];
 
