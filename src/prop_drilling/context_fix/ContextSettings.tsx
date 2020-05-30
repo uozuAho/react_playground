@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { SettingsViewer } from './SettingsViewer';
 import { SettingsEditor } from './SettingsEditor';
-import { TemplateContextProvider } from './TemplateContext';
+import { TemplateContextProvider, ITemplateContext } from './TemplateContext';
 
 export interface Settings {
   enabled: boolean,
@@ -38,6 +38,7 @@ export class ContextSettings extends React.Component<{}, ContextSettingsState> {
       mode: 'view',
       settings: values
     });
+    (this.context as ITemplateContext).setSelectedTemplate()
   };
 
   private renderViewer = () => {
