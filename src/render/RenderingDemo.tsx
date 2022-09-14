@@ -114,7 +114,7 @@ function RenderCounter() {
 
   return (
     <b>Renders: {++counter.current}</b>
-  )
+  );
 }
 
 function Counter({name, counter}: {name: string, counter: number}) {
@@ -123,7 +123,7 @@ function Counter({name, counter}: {name: string, counter: number}) {
     <>
       <p>{name}: {counter} <RenderCounter /></p>
     </>
-  )
+  );
 }
 
 const MemoCounter = React.memo(function Counter({ name, counter }: {name: string, counter: number}) {
