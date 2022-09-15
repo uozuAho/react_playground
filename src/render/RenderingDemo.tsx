@@ -13,17 +13,14 @@ export class RenderingDemo extends React.PureComponent {
       <>
         <h1>Rendering</h1>
 
-        <p>Use chrome + react dev tools. Go to dev tools - components - settings
-          - highlight updates when components render<sup>1</sup>. If you also want to see DOM
-          paints, click the chrome dev tools ellipses - more tools - rendering -
-          paint flashing.
+        <p>
+          Use chrome + react dev tools. Go to dev tools - components - settings
+          - highlight updates when components render<sup>1</sup>. If you also
+          want to see DOM paints, click the chrome dev tools ellipses - more
+          tools - rendering - paint flashing. Note that highlighting component
+          updates also cause paint flashing. These tools are better used
+          separately.
         </p>
-
-        <h2>To do</h2>
-        <ul>
-          <li>object as prop example and mitigation</li>
-          <li>Why do all button clicks cause a full page paint?</li>
-        </ul>
 
         <h2>Quirks</h2>
         <ol>
@@ -53,7 +50,7 @@ export class RenderingDemo extends React.PureComponent {
 
 function FirstBadExample() {
   const [counterA, setCounterA] = React.useState(0);
-  const [counterB, setCounterB] = React.useState(0);
+  const [counterB] = React.useState(0);
 
   console.log("render FirstBadExample");
 
@@ -83,7 +80,7 @@ function FirstBadExample() {
 
 function MemoCounterExample() {
   const [counterA, setCounterA] = React.useState(0);
-  const [counterB, setCounterB] = React.useState(0);
+  const [counterB] = React.useState(0);
 
   console.log("render MemoCounterExample");
 
